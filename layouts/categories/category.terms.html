@@ -1,0 +1,17 @@
+{{ define "main" }}
+<div class="h-full flex flex-row">
+  {{- partial "components/sidebar.html" . -}}
+  <div class="flex-1 py-4 pr-4 overflow-y-auto">
+    <div class="w-full p-10">
+      <div class="font-bold text-2xl my-2">Categories</div>
+      <div class="py-4">
+        {{ range $item := .Data.Terms.ByCount }}
+          {{ with $item.Name }}
+            {{- partial "components/categories.html" . -}}
+          {{ end }}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

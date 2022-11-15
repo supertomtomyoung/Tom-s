@@ -1,0 +1,5 @@
+{{ if .IsPage }}
+  {{- partial "footer/page.html" . -}}
+{{ else }}
+  {{- partial "footer/home.html" . -}}
+{{ end }}

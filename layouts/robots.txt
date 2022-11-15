@@ -1,0 +1,4 @@
+User-agent: *
+{{ range $page := .Pages }}
+  Disallow: {{ $page.RelPermalink }}
+{{ end }}

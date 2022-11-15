@@ -1,0 +1,19 @@
+{{ define "main" }}
+<div class="h-full flex flex-row">
+  {{- partial "components/sidebar.html" . -}}
+  <div class="flex-1 py-4 pr-4 overflow-y-auto">
+    <div class="w-full min-h-full p-10">
+      <div class="font-bold text-2xl my-2">
+        {{ with .File }}
+          {{- .BaseFileName -}}
+        {{ end }}
+      </div>
+      <div class="pt-4">
+        {{ with .Content }}
+          {{- partial "components/content.html" . -}}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

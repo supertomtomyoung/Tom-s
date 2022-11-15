@@ -1,0 +1,23 @@
+<title>
+  {{- with .Page.Title }}
+    {{- . -}}
+  {{ end -}}
+</title>
+<meta 
+  name="description" 
+  itemprop="description"
+  content="
+    {{- with .Site.Params.description }} 
+      {{- . -}} 
+    {{ end -}}
+  " 
+/>
+<meta 
+  name="keywords" 
+  itemprop="keywords"
+  content="
+    {{- with .Site.Params.keywords }}
+      {{- . -}}
+    {{ end -}}
+  "
+/>

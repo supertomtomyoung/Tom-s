@@ -1,0 +1,9 @@
+{{ $shims := dict "pangu" "js/lib/pangu.js" "function" "js/lib/function.js" }}
+
+{{ $util := resources.Match "js/*.js" }}
+{{ if and $util (gt (len $util) 0) }}
+  {{ $babelOpts := dict "noComments" true }}
+  {{ $js := $util | resources.Concat "js/util.js" | js.Build (dict "shims" $shims ) }}
+  {{ $secureJS := $js | resources.Minify | resources.Fingerprint "sha512" }}
+
+{{ end }}

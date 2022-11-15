@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="{{- .Site.LanguageCode  | default "zh-cn" -}}">
+  {{- partial "header/default.html" . -}}
+  <body class="font-mono subpixel-antialiased">
+    {{- block "main" . -}}{{- end -}}
+  </body>
+  {{- partial "footer/default.html" . -}}
+</html>

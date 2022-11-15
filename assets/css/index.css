@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* html body */
+
+html, body {
+  height: 100%;
+}
+
+/* 滚动条样式 */
+
+::-webkit-scrollbar {
+  height: 10px !important;
+  width: 10px !important;
+  background-color: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px !important;
+  --tw-text-opacity: 0.5;
+  background-color: rgb(107 114 128/var(--tw-text-opacity))!important;
+}
+
+/* 分页样式 */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination .page-item {
+  margin: 0 10px;
+}
+
+.pagination .disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.pagination .active {
+  --tw-text-opacity: 1;
+  color: rgb(99 102 241/var(--tw-text-opacity));
+}
+
+/* toc样式 */
+
+.toc ul {
+  list-style: none;
+  display: block;
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-inline-start: 20px;
+  user-select: none;
+}

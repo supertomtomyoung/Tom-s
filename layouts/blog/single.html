@@ -1,0 +1,39 @@
+{{ define "main" }}
+<div class="h-full flex flex-row">
+  <div class="flex-1 py-4 pr-4 overflow-y-auto">
+    <div class="w-8/12 mx-auto">
+      <!-- 头部 -->
+      <div class="mb-14">
+        <div class="font-bold text-3xl py-10">
+          {{ with .File }}
+            {{- .BaseFileName -}}
+          {{ end }}
+        </div>
+        <div class="text-base italic text-gray-500 py-4 px-4 bg-zinc-100 rounded-lg shadow-sm">
+          <a href="/">{{- .Site.Params.auther -}}</a>
+          <span>发布于{{- .Date.Format "2006-01-02" -}}</span>
+          <span>更新于{{- .Lastmod.Format "2006-01-02" -}}</span>
+          <span>共{{- .WordCount -}}字</span>
+          <span>阅读{{- .ReadingTime -}}分钟</span>
+        </div>
+      </div>
+      <!-- 内容 -->
+      {{ with .Content }}
+        {{- partial "components/content.html" . -}}
+      {{ end }}
+      <!-- 尾部 -->
+      <div class="">
+        <div class="py-10">
+          {{ with .Page.Params.Categories }}
+            {{- partial "components/categories.html" . -}}
+          {{ end }}
+          {{ with .Page.Params.Tags }}
+            {{- partial "components/tags.html" . -}}
+          {{ end }}
+        </div>
+      </div>
+    </div>
+    <!-- {{- partial "components/menu.html" . -}} -->
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,46 @@
+{{/* 可以接受一组tag数据或者一个tag数据，tag数据可以是一个字符串名，也可以是一个对象，包含name count fontSize */}}
+{{ if (reflect.IsSlice .) }}
+  <span>
+    {{ range $index, $item := . }}
+      {{ if (reflect.IsMap $item) }}
+        <a
+          class="mr-2 font-normal italic text-indigo-500 hover:text-indigo-600 duration-300" 
+          href="tags/{{- $item.name | urlize -}}"
+          {{ .fontSize | printf `style = 'font-size: %vem;'` | safeHTMLAttr }}
+        >
+          <span>#{{- $item.name -}}</span>
+          {{ if $item.count }}
+            <sup>{{- $item.count -}}</sup>
+          {{ end }}
+        </a>
+      {{ else }}
+        <a 
+          class="mr-2 font-normal italic text-base text-indigo-500 hover:text-indigo-600 duration-300" 
+          href="tags/{{- . | urlize -}}"
+        >
+          <span>#{{- . -}}</span>
+        </a>
+      {{ end }}
+    {{ end }}
+  </span>
+{{ else }}
+  {{ if (reflect.IsMap .) }}
+    <a
+      class="mr-2 font-normal italic text-base text-indigo-500 hover:text-indigo-600 duration-300" 
+      href="tags/{{- .name | urlize -}}"
+      {{ .fontSize | printf `style = 'font-size: %vem;'` | safeHTMLAttr }}
+    >
+      <span>#{{- .name -}}</span>
+      {{ if .count }}
+        <sup>{{- .count -}}</sup>
+      {{ end }}
+    </a>
+  {{ else }}
+    <a 
+      class="mr-2 font-normal italic text-base text-indigo-500 hover:text-indigo-600 duration-300" 
+      href="tags/{{- . | urlize -}}"
+    >
+      <span>#{{- . -}}</span>
+    </a>
+  {{ end }}
+{{ end }}

@@ -1,0 +1,35 @@
+<ul class="menu">
+  <li class="menu-item">
+    <i class="iconfont icon-top item-btn" id="back_top_btn"></i>
+  </li>
+  <li class="menu-item">
+    <a href="/" id="back-btn">
+      <i class="iconfont icon-home item-btn"></i>
+    </a>
+  </li>
+  <li class="menu-item">
+    <i class="iconfont icon-switch item-btn" id="switch_btn"></i>
+  </li>
+  {{ if .Page.PrevInSection }}
+    <li class="menu-item">
+      <a
+        class=""
+        href="{{ .Page.PrevInSection.RelPermalink }}"
+        data-tooltip="{{- .Page.PrevInSection.File.BaseFileName -}}"
+      >
+        <i class="iconfont icon-left item-btn"></i>
+      </a>
+    </li>
+  {{ end }}
+  {{ if .Page.NextInSection }}
+    <li class="menu-item">
+      <a
+        class=""
+        href="{{- .Page.NextInSection.RelPermalink -}}"
+        data-tooltip="{{- .Page.NextInSection.File.BaseFileName -}}"
+      >
+        <i class="iconfont icon-right item-btn"></i>
+      </a>
+    </li>
+  {{ end }}
+</ul>

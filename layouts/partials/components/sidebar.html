@@ -1,0 +1,61 @@
+<div
+  class="w-1/4 flex flex-col items-center py-10 m-4 bg-zinc-100 rounded-lg shadow-md"
+>
+  <!-- 头像 -->
+  {{ $avatar := resources.Get "avatar/avatar.jpg" }}
+	{{ if $avatar }}
+    <a 
+      rel="me" 
+      href="/me/"
+      aria-label="个人简介" 
+      class="w-40 h-40 rounded-full overflow-hidden border-8 border-zinc-200 cursor-pointer mb-10 shadow-sm hover:rotate-45 duration-150"
+    >
+      <img
+        id="switch_btn"
+        src="{{- $avatar.Permalink -}}"
+        alt="profile picture"
+      />
+    </a>
+  {{ end }}
+
+  <!-- 社交媒体链接 -->
+  {{ if and .Site.Params.socialIcons (gt (len .Site.Params.socialIcons) 0) }}
+    <div class="flex flex-row mb-10">
+      {{ range $item := .Site.Params.socialIcons }}
+          <a 
+            rel="me" 
+            href="{{- $item.url -}}" 
+            aria-label="{{- $item.title -}}"
+            class="mx-4 overflow-hidden hover:scale-125 duration-150"
+          >
+            <i class="iconfont {{ $item.icon }} text-3xl text-gray-800"></i>
+          </a>
+      {{ end }}
+    </div>
+  {{ end }}
+
+  <!-- 菜单 -->
+  {{ if and .Site.Menus.main (gt (len .Site.Menus.main) 0) }}
+    <div class="flex flex-col font-semibold text-base">
+      {{ $url := .Page.RelPermalink }}
+      {{ range $item := .Site.Menus.main }} 
+        {{ $active := eq $url $item.URL }}
+        <div class="my-4 text-gray-800">
+          <a class="{{ if $active -}} text-indigo-500 hover:text-indigo-600 duration-150 {{- end }}" href="{{- $item.URL -}}">
+            {{- $item.Name -}}
+          </a>
+        </div>
+      {{ end }}
+    </div>
+  {{ end }}
+
+  <!-- copyright -->
+  <!-- {{ if and .Site.Params.auther .Site.Params.since }}
+  <div class="footer">
+    <div>
+      &copy; {{- .Site.Params.auther }} {{ .Site.Params.since -}}-{{- now.Format
+      "2006" -}}
+    </div>
+  </div>
+  {{ end }} -->
+</div>

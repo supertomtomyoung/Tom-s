@@ -1,0 +1,32 @@
+{{ define "main" }}
+<div class="h-full flex flex-row">
+  <!-- 左侧菜单 -->
+  {{- partial "components/sidebar.html" . -}}
+  <div class="flex-col flex-1 py-4 pr-4 overflow-y-auto">
+    {{ $paginator := .Paginate (where .Site.RegularPages "Type" "in" .Site.Params.mainSections) }}
+    {{ range $item := $paginator.Pages }}
+      <div class="w-full mb-4 p-10 rounded-lg shadow-md">
+        <div class="mb-4">
+          {{ with $item.Params.Categories }}
+            {{- partial "components/categories.html" . -}}
+          {{ end }}
+          <a class="font-semibold text-xl text-gray-800" href="{{- $item.RelPermalink -}}">
+            {{- $item.File.BaseFileName -}}
+          </a>
+        </div>
+        <div class="flex flex-row">
+          <span class="font-normal text-base mr-4 text-gray-500">
+            {{- $item.Date.Format "2006-01-02" -}}
+          </span>
+          {{ with $item.Params.Tags }}
+            {{- partial "components/tags.html" . -}}
+          {{ end }}
+        </div>
+      </div>
+    {{ end }}
+    <div class="flex flex-row justify-center text-gray-800">
+      {{- template "_internal/pagination.html" . -}}
+    </div>
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,37 @@
+<title>
+  {{- with .Page.File.BaseFileName }}
+    {{- . -}}
+  {{ end -}}
+</title>
+<meta 
+  name="description" 
+  itemprop="description"
+  content="
+    {{- with .Page.File.BaseFileName }} 
+      {{- . -}} 
+    {{ end -}}
+  " 
+/>
+<meta 
+  name="keywords" 
+  itemprop="keywords"
+  content="
+    {{- with .Page.Params.tags }}
+      {{- . -}}
+    {{ end -}}
+  "
+/>
+{{ $iso8601 := "2006-01-02T15:04:05-07:00" }}
+{{ with .PublishDate }}
+  <meta itemprop="datePublished" 
+    {{ .Format $iso8601 | printf "content=%q" | safeHTMLAttr }} 
+  />
+{{ end}}
+{{ with .Lastmod }}
+  <meta itemprop="dateModified"
+    {{ .Format $iso8601 | printf "content=%q" | safeHTMLAttr }}
+  />
+{{ end}}
+{{ with .WordCount }}
+  <meta itemprop="wordCount" content="{{- . -}}"/>
+{{ end }}

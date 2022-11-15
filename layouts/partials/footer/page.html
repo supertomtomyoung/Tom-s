@@ -1,0 +1,15 @@
+{{ $defines := dict "process.env.NODE_ENV" hugo.Environment }}
+{{ $babelOpts := dict "noComments" true }}
+{{ $buildOpts := dict "targetPath" "js/bundle.js" "defines" $defines }}
+
+{{/* 支持多个合并 */}}
+{{ $util := resources.Match "js/page/index.js" }}
+{{ if and $util (gt (len $util) 0) }}
+  {{ $js := $util | resources.Concat "js/index.js" | resources.Babel $babelOpts | js.Build $buildOpts }}
+  {{ $secureJS := $js | resources.Minify | resources.Fingerprint "sha512" }}
+  <script
+    src="{{- $secureJS.Permalink -}}" 
+    integrity="{{- $secureJS.Data.Integrity -}}"
+    defer
+  ></script>
+{{ end }}

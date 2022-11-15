@@ -1,0 +1,32 @@
+{
+  "author": "tomtomyoung",
+  "comments": {
+    "dependencies": {
+      "pangu": "project"
+    },
+    "devDependencies": {
+      "@tailwindcss/typography": "project",
+      "tailwindcss": "project"
+    }
+  },
+  "dependencies": {
+    "pangu": "^4.0.7"
+  },
+  "description": "",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.8",
+    "eslint": "^8.27.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "tailwindcss": "^3.2.1"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "name": "tom_theme",
+  "scripts": {
+    "build": "tailwindcss --input ./assets/css/index.css --output ./assets/css/tailwind.css --minify",
+    "dev": "tailwindcss --input ./assets/css/index.css --output ./assets/css/tailwind.css --watch",
+    "lint": "eslint ./ --ext .js",
+    "lint:fix": "eslint ./ --ext .js --fix"
+  },
+  "version": "1.0.0"
+}

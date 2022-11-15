@@ -1,0 +1,30 @@
+{{ define "main" }}
+<div class="h-full flex flex-row">
+  {{- partial "components/sidebar.html" . -}}
+  <div class="flex-1 py-4 pr-4 overflow-y-auto">
+    <div class="w-full p-10">
+      {{ with .Title }}
+        {{- partial "components/tags.html" . -}}
+      {{ end }}
+      <ul class="ml-4 py-4">
+        {{ range $item := .Pages }}
+          <li class="text-base my-2">
+            <span class="text-gray-500">
+              {{- $item.Date.Format "2006-01-02" -}}
+            </span>
+            <a 
+              class="text-gray-800" 
+              href="{{- $item.Permalink -}}" 
+              title="{{- $item.File.BaseFileName -}}"
+            >
+              {{ with $item.File }}
+                {{- .BaseFileName -}}
+              {{ end }}
+            </a>
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</div>
+{{ end }}

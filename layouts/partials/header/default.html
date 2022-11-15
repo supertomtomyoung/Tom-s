@@ -1,0 +1,86 @@
+<head>
+  <meta charset="utf-8" />
+  <meta 
+    name="viewport" 
+    content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5" 
+  />
+
+  <!-- 区分 home 和 page -->
+  {{ if .IsPage }}
+    {{- partial "header/page.html" . -}}
+  {{ else }}
+    {{- partial "header/home.html" . -}}
+  {{ end }}
+
+  <!-- home 和 page 都有的内容 -->
+
+  <!-- author：作者信息 -->
+  <meta name="author" content="{{- .Site.Params.auther -}}">
+
+  <!-- baseUrl：页面的基础url -->
+  <base href="{{- .Site.BaseURL -}}" />
+
+  <!-- generator：生成器信息 -->
+  {{- hugo.Generator -}}
+
+  <!-- favicon：包括 ico 和 png -->
+  {{ $faviconIco := resources.Get "favicon/favicon.ico" }}
+  {{ if $faviconIco }}
+  <link
+    rel="shortcut icon" 
+    href="{{- $faviconIco.Permalink -}}" 
+    type="image/x-icon" 
+  />
+  {{ end }}
+
+  {{ $faviconPng := resources.Match "favicon/favicon*.png" }}
+  {{ if and $faviconPng (gt (len $faviconPng) 0) }}
+    {{ range $item := $faviconPng }}
+      {{ $size := substr (index (findRE "-.*?\\." $item.RelPermalink) 0) 1 -1 }}
+      <link
+        rel="icon"
+        sizes="{{- $size -}}" 
+        href="{{- $item.Permalink -}}" 
+        type="image/png"
+      />
+    {{ end }}
+  {{ end }}
+  
+  <!-- apple device：包括 mask-icon 和 touch-icon, touch-icon 的命名方式必须是apple_touch_icon-64x64 -->
+  {{ $maskIcon := resources.Get "apple/safari-pinned-tab.svg" }}
+  {{ if $maskIcon }}
+    <link 
+      rel="mask-icon"
+      href="{{- $maskIcon.Permalink -}}"
+      color="#ffffff"
+    />
+  {{ end }}
+  {{ $appleTouchIcon := resources.Match "apple/apple_touch_icon-*.png" }}
+  {{ if and $appleTouchIcon (gt (len $appleTouchIcon) 0) }}
+    {{ range $item := $appleTouchIcon }}
+      {{ $size := substr (index (findRE "-.*?\\." $item.RelPermalink) 0) 1 -1 }}
+      <link
+        rel="apple-touch-icon" 
+        sizes="{{- $size -}}" 
+        href="{{- $item.Permalink -}}"
+      />
+    {{ end }}
+  {{ end }}
+
+  <!-- service worker -->
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+
+  <!-- iconfont：获取 iconfont 的链接，并在 Params 中配置 -->
+  {{ if .Site.Params.iconfontCss }}
+    <link rel="stylesheet" type="text/css" href="{{- .Site.Params.iconfontCss -}}" />
+  {{ end }}
+  
+  <!-- style -->
+  {{ $tailwind := resources.Get "css/tailwind.css" | resources.Minify | resources.Fingerprint "sha512" }}
+  <link 
+    rel="stylesheet" 
+    href="{{- $tailwind.Permalink -}}" 
+    integrity="{{- $tailwind.Data.Integrity -}}"
+    type="text/css" 
+  />
+</head>
